@@ -1,0 +1,22 @@
+apply plugin: 'application'
+
+mainClassName = 'mpj.Lab2'
+
+def mpjHome = System.getenv( 'MPJ_HOME' )
+def mpjStarter = files( "$mpjHome/lib/starter.jar" )
+def mpjJar = files( "$mpjHome/lib/mpj.jar" )
+def mpjClasspath = sourceSets.main.runtimeClasspath - mpjJar + files('/Users/maksimpolakov/Documents/MPJTest/build/classes/java/main/mpj')
+
+dependencies {
+    compile fileTree(dir:'mpj-v0_44' )
+}
+
+run {
+    main = 'runtime.starter.MPJRun'
+    classpath = mpjStarter
+    args mainClassName, '-cp', mpjClasspath.asPath, '-np',4
+    dependsOn classes
+}
+
+
+

@@ -1,0 +1,172 @@
+#!/usr/bin/env sh
+
+##############################################################################
+##
+##  MPJTest start up script for UN*X
+##
+##############################################################################
+
+# Attempt to set APP_HOME
+# Resolve links: $0 may be a link
+PRG="$0"
+# Need this for relative symlinks.
+while [ -h "$PRG" ] ; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
+    else
+        PRG=`dirname "$PRG"`"/$link"
+    fi
+done
+SAVED="`pwd`"
+cd "`dirname \"$PRG\"`/.." >/dev/null
+APP_HOME="`pwd -P`"
+cd "$SAVED" >/dev/null
+
+APP_NAME="MPJTest"
+APP_BASE_NAME=`basename "$0"`
+
+# Add default JVM options here. You can also use JAVA_OPTS and MPJ_TEST_OPTS to pass JVM options to this script.
+DEFAULT_JVM_OPTS=""
+
+# Use the maximum available, or set MAX_FD != -1 to use that value.
+MAX_FD="maximum"
+
+warn () {
+    echo "$*"
+}
+
+die () {
+    echo
+    echo "$*"
+    echo
+    exit 1
+}
+
+# OS specific support (must be 'true' or 'false').
+cygwin=false
+msys=false
+darwin=false
+nonstop=false
+case "`uname`" in
+  CYGWIN* )
+    cygwin=true
+    ;;
+  Darwin* )
+    darwin=true
+    ;;
+  MINGW* )
+    msys=true
+    ;;
+  NONSTOP* )
+    nonstop=true
+    ;;
+esac
+
+CLASSPATH=$APP_HOME/lib/MPJTest.jar:$APP_HOME/lib/THIRDPARTYNOTICES.txt:$APP_HOME/lib/bcastO.java:$APP_HOME/lib/reduce_scatterO.java:$APP_HOME/lib/alltoallvO.java:$APP_HOME/lib/allgathervO.java:$APP_HOME/lib/scanO.java:$APP_HOME/lib/alltoallO.java:$APP_HOME/lib/scattervO.java:$APP_HOME/lib/reduceO.java:$APP_HOME/lib/test.java:$APP_HOME/lib/allreduceO.java:$APP_HOME/lib/scatterO.java:$APP_HOME/lib/allgatherO.java:$APP_HOME/lib/gatherO.java:$APP_HOME/lib/gathervO.java:$APP_HOME/lib/map.java:$APP_HOME/lib/sub2.java:$APP_HOME/lib/dimscreate.java:$APP_HOME/lib/graph.java:$APP_HOME/lib/cart_topo.java:$APP_HOME/lib/sub.java:$APP_HOME/lib/cart.java:$APP_HOME/lib/ContiguousTest.java:$APP_HOME/lib/Group_excl.java:$APP_HOME/lib/Group_union.java:$APP_HOME/lib/group.java:$APP_HOME/lib/Group_self.java:$APP_HOME/lib/Group_tranks.java:$APP_HOME/lib/range.java:$APP_HOME/lib/Group_intersect.java:$APP_HOME/lib/Group_com.java:$APP_HOME/lib/Group_incl.java:$APP_HOME/lib/Group_diff.java:$APP_HOME/lib/lbub2.java:$APP_HOME/lib/zero5.java:$APP_HOME/lib/Vector.java:$APP_HOME/lib/Contiguous.java:$APP_HOME/lib/hvec.java:$APP_HOME/lib/lbub.java:$APP_HOME/lib/zero1.java:$APP_HOME/lib/type_size.java:$APP_HOME/lib/Indexed.java:$APP_HOME/lib/DtypTest.java:$APP_HOME/lib/pack.java:$APP_HOME/lib/hostfile:$APP_HOME/lib/lbub2O.java:$APP_HOME/lib/packO.java:$APP_HOME/lib/lbubO.java:$APP_HOME/lib/hvecO.java:$APP_HOME/lib/test.java:$APP_HOME/lib/MyLinkList.java:$APP_HOME/lib/TestTask.java:$APP_HOME/lib/Job.java:$APP_HOME/lib/MyLinkList1.java:$APP_HOME/lib/SendTest_Conv2.java:$APP_HOME/lib/SendTest_Conv.java:$APP_HOME/lib/Task.java:$APP_HOME/lib/Result.java:$APP_HOME/lib/TestResult.java:$APP_HOME/lib/bcast_bench:$APP_HOME/lib/alltoall.java:$APP_HOME/lib/scan.java:$APP_HOME/lib/alltoallv.java:$APP_HOME/lib/barrier.java:$APP_HOME/lib/reduce.java:$APP_HOME/lib/scatterv.java:$APP_HOME/lib/reduce2.java:$APP_HOME/lib/bcast.java:$APP_HOME/lib/gather.java:$APP_HOME/lib/reduce_scatter.java:$APP_HOME/lib/scatter.java:$APP_HOME/lib/allgatherv.java:$APP_HOME/lib/allreduce.java:$APP_HOME/lib/gatherv.java:$APP_HOME/lib/allgather.java:$APP_HOME/lib/allreduce_maxminloc.java:$APP_HOME/lib/compare.java:$APP_HOME/lib/split.java:$APP_HOME/lib/split2.java:$APP_HOME/lib/intercomm_test.java:$APP_HOME/lib/intercomm.java:$APP_HOME/lib/comm_test.java:$APP_HOME/lib/commdup.java:$APP_HOME/lib/CommTest.java:$APP_HOME/lib/abort.java:$APP_HOME/lib/InputTester.java:$APP_HOME/lib/EnvTester.java:$APP_HOME/lib/procname.java:$APP_HOME/lib/wtime.java:$APP_HOME/lib/ErrStreamPrinter.java:$APP_HOME/lib/initialized.java:$APP_HOME/lib/ProgressionTest1.java:$APP_HOME/lib/MultithreadedComm.java:$APP_HOME/lib/SimulSendRecv.java:$APP_HOME/lib/SimulSend.java:$APP_HOME/lib/MultiplexNoComm.jomp:$APP_HOME/lib/sendrecvO.java:$APP_HOME/lib/waitallO.java:$APP_HOME/lib/bsendO.java:$APP_HOME/lib/getcountO.java:$APP_HOME/lib/waitsomeO.java:$APP_HOME/lib/testallO.java:$APP_HOME/lib/isendO.java:$APP_HOME/lib/test.java:$APP_HOME/lib/test1O.java:$APP_HOME/lib/rsendO.java:$APP_HOME/lib/startO.java:$APP_HOME/lib/test3O.java:$APP_HOME/lib/testsomeO.java:$APP_HOME/lib/testanyO.java:$APP_HOME/lib/rsend2O.java:$APP_HOME/lib/waitanyO.java:$APP_HOME/lib/test2O.java:$APP_HOME/lib/ssendO.java:$APP_HOME/lib/barrier_bench.java:$APP_HOME/lib/Latency.java:$APP_HOME/lib/bandwidth.c:$APP_HOME/lib/SeqMatrix.java:$APP_HOME/lib/bcast_bench.java:$APP_HOME/lib/barrier_bench.c:$APP_HOME/lib/WaitAnyKiller.java:$APP_HOME/lib/Bandwidth.java:$APP_HOME/lib/bcast_bench.c:$APP_HOME/lib/Isend_rendez_fairness.java:$APP_HOME/lib/test3.java:$APP_HOME/lib/bsend_test.java.bk:$APP_HOME/lib/non_overtaking.java:$APP_HOME/lib/BufferTest1.java:$APP_HOME/lib/intertwined.java:$APP_HOME/lib/cancel1.java:$APP_HOME/lib/buffer.java.bk:$APP_HOME/lib/isend2.java:$APP_HOME/lib/waitsome.java:$APP_HOME/lib/test2.java:$APP_HOME/lib/syncbug.java:$APP_HOME/lib/Bsend_test2.java:$APP_HOME/lib/waitall2.java:$APP_HOME/lib/ssend.java:$APP_HOME/lib/rsend.java:$APP_HOME/lib/seq.java:$APP_HOME/lib/Isend_eager.java:$APP_HOME/lib/testsome.java:$APP_HOME/lib/BufferBench1.java:$APP_HOME/lib/iprobe.java:$APP_HOME/lib/Ssend_test1.java:$APP_HOME/lib/probe.java:$APP_HOME/lib/waitany.java:$APP_HOME/lib/getcount.java:$APP_HOME/lib/start.java:$APP_HOME/lib/sendrecv.java:$APP_HOME/lib/waitall.java:$APP_HOME/lib/BufferTest6.java:$APP_HOME/lib/Send_rendez_fairness.java:$APP_HOME/lib/sendrecv_rep.java:$APP_HOME/lib/Send_eager_fairness.java:$APP_HOME/lib/Isend_rendez.java:$APP_HOME/lib/startall.java:$APP_HOME/lib/BreakANYSRC.java:$APP_HOME/lib/isend.java:$APP_HOME/lib/Send_rendez.java:$APP_HOME/lib/BufferBench2.java:$APP_HOME/lib/wildcard.java:$APP_HOME/lib/test1.java:$APP_HOME/lib/testany.java:$APP_HOME/lib/waitnull.java:$APP_HOME/lib/bsend_test1.java:$APP_HOME/lib/buffer.java:$APP_HOME/lib/SimpleNB.java:$APP_HOME/lib/TestSendInit.java:$APP_HOME/lib/testall.java:$APP_HOME/lib/BufferTest3.java:$APP_HOME/lib/SimpleB.java:$APP_HOME/lib/SimpleBsend.java:$APP_HOME/lib/bsend_org.java.bk:$APP_HOME/lib/req_test.java:$APP_HOME/lib/bsend.java.bk:$APP_HOME/lib/BufferRoller.java:$APP_HOME/lib/dacian_test.java:$APP_HOME/lib/rsend2.java:$APP_HOME/lib/start2.java:$APP_HOME/lib/NonBlocking.java:$APP_HOME/lib/NonBlockingObj.java:$APP_HOME/lib/runtest.bat:$APP_HOME/lib/compile.sh:$APP_HOME/lib/runtest.sh:$APP_HOME/lib/compile.bat:$APP_HOME/lib/build.xml:$APP_HOME/lib/manifest:$APP_HOME/lib/Gather.java:$APP_HOME/lib/Reduce.java:$APP_HOME/lib/PingPong.java:$APP_HOME/lib/PingPong.java:$APP_HOME/lib/PingPong.java:$APP_HOME/lib/PingPong.java:$APP_HOME/lib/Scan.java:$APP_HOME/lib/Barrier.java:$APP_HOME/lib/Alltoall.java:$APP_HOME/lib/Reduce_scatter.java:$APP_HOME/lib/Scatter.java:$APP_HOME/lib/Allgather.java:$APP_HOME/lib/Allreduce.java:$APP_HOME/lib/Broadcast.java:$APP_HOME/lib/JGFInstrumentor.java:$APP_HOME/lib/JGFSection1.java:$APP_HOME/lib/JGFTimer.java:$APP_HOME/lib/JGFSection2.java:$APP_HOME/lib/JGFSection3.java:$APP_HOME/lib/obj_double.java:$APP_HOME/lib/JGFAlltoallBench.java:$APP_HOME/lib/JGFBcastBench.java:$APP_HOME/lib/JGFGatherBench.java:$APP_HOME/lib/JGFBarrierBench.java:$APP_HOME/lib/JGFAll.java:$APP_HOME/lib/JGFScatterBench.java:$APP_HOME/lib/JGFPingPongBench.java:$APP_HOME/lib/JGFReduceBench.java:$APP_HOME/lib/JGFMolDynBenchSizeA.java:$APP_HOME/lib/JGFAllSizeB.java:$APP_HOME/lib/JGFRayTracerBenchSizeA.java:$APP_HOME/lib/md.java:$APP_HOME/lib/JGFMolDynBench.java:$APP_HOME/lib/Interval.java:$APP_HOME/lib/RayTracer.java:$APP_HOME/lib/Ray.java:$APP_HOME/lib/Light.java:$APP_HOME/lib/Scene.java:$APP_HOME/lib/Primitive.java:$APP_HOME/lib/View.java:$APP_HOME/lib/Sphere.java:$APP_HOME/lib/Isect.java:$APP_HOME/lib/Vec.java:$APP_HOME/lib/JGFRayTracerBench.java:$APP_HOME/lib/Surface.java:$APP_HOME/lib/JGFMonteCarloBenchSizeB.java:$APP_HOME/lib/ToTask.java:$APP_HOME/lib/PathId.java:$APP_HOME/lib/Utilities.java:$APP_HOME/lib/RatePath.java:$APP_HOME/lib/DemoException.java:$APP_HOME/lib/ToResult.java:$APP_HOME/lib/ToInitAllTasks.java:$APP_HOME/lib/MonteCarloPath.java:$APP_HOME/lib/Universal.java:$APP_HOME/lib/PriceStock.java:$APP_HOME/lib/AppDemo.java:$APP_HOME/lib/CallAppDemo.java:$APP_HOME/lib/ReturnPath.java:$APP_HOME/lib/JGFMonteCarloBench.java:$APP_HOME/lib/JGFMonteCarloBenchSizeA.java:$APP_HOME/lib/JGFAllSizeA.java:$APP_HOME/lib/JGFRayTracerBenchSizeB.java:$APP_HOME/lib/JGFMolDynBenchSizeB.java:$APP_HOME/lib/JGFSeriesBench.java:$APP_HOME/lib/SeriesTest.java:$APP_HOME/lib/JGFSeriesBenchSizeB.java:$APP_HOME/lib/JGFSparseMatmultBenchSizeA.java:$APP_HOME/lib/JGFSORBenchSizeB.java:$APP_HOME/lib/JGFLUFactBenchSizeA.java:$APP_HOME/lib/JGFSORBenchSizeC.java:$APP_HOME/lib/JGFSeriesBenchSizeC.java:$APP_HOME/lib/JGFCryptBench.java:$APP_HOME/lib/IDEATest.java:$APP_HOME/lib/JGFAllSizeB.java:$APP_HOME/lib/JGFCryptBenchSizeC.java:$APP_HOME/lib/JGFCryptBenchSizeB.java:$APP_HOME/lib/JGFAllSizeC.java:$APP_HOME/lib/JGFCryptBenchSizeA.java:$APP_HOME/lib/JGFAllSizeA.java:$APP_HOME/lib/JGFSORBench.java:$APP_HOME/lib/SOR.java:$APP_HOME/lib/JGFSparseMatmultBenchSizeC.java:$APP_HOME/lib/JGFLUFactBenchSizeC.java:$APP_HOME/lib/JGFSparseMatmultBench.java:$APP_HOME/lib/SparseMatmult.java:$APP_HOME/lib/JGFSORBenchSizeA.java:$APP_HOME/lib/JGFLUFactBenchSizeB.java:$APP_HOME/lib/JGFSparseMatmultBenchSizeB.java:$APP_HOME/lib/JGFSeriesBenchSizeA.java:$APP_HOME/lib/JGFLUFactBench.java:$APP_HOME/lib/Linpack.java:$APP_HOME/lib/init.java:$APP_HOME/lib/Ssend.java:$APP_HOME/lib/Issend.java:$APP_HOME/lib/Iprobe.java:$APP_HOME/lib/thread_init.java:$APP_HOME/lib/Probe.java:$APP_HOME/lib/Send.java:$APP_HOME/lib/mpjrun.sh:$APP_HOME/lib/killall:$APP_HOME/lib/Isend.java:$APP_HOME/lib/Itest.java:$APP_HOME/lib/MappedBuffer.class:$APP_HOME/lib/CommTest.java:$APP_HOME/lib/init.java:$APP_HOME/lib/RingTest.java:$APP_HOME/lib/AnySrc.java:$APP_HOME/lib/SendRecv.java:$APP_HOME/lib/RingTest.class:$APP_HOME/lib/SameProcess.java:$APP_HOME/lib/SameProcess.class:$APP_HOME/lib/SameTag.java:$APP_HOME/lib/AnyTag.java:$APP_HOME/lib/BarrierTest.java:$APP_HOME/lib/TestTimer.java:$APP_HOME/lib/Group_excl.java:$APP_HOME/lib/Group_union.java:$APP_HOME/lib/Group_tranks.java:$APP_HOME/lib/Group_intersect.java:$APP_HOME/lib/Group_com.java:$APP_HOME/lib/Group_incl.java:$APP_HOME/lib/Group_diff.java:$APP_HOME/lib/BufferTestDyna5.java:$APP_HOME/lib/BufferTestDyna4.java:$APP_HOME/lib/BufferTest7.java:$APP_HOME/lib/BufferTestDyna3.java:$APP_HOME/lib/NonBlockingTest2.java:$APP_HOME/lib/BufferTestDyna2.java:$APP_HOME/lib/BufferTest6.java:$APP_HOME/lib/BufferTestDyna1.java:$APP_HOME/lib/BufferTest5.java:$APP_HOME/lib/NonBlockingTest2.class:$APP_HOME/lib/BufferTest9.java:$APP_HOME/lib/BufferTest8.java:$APP_HOME/lib/BufferTest4.java:$APP_HOME/lib/NonBlockingTest1.java:$APP_HOME/lib/NonBlockingTest1.class:$APP_HOME/lib/BufferTest3.java:$APP_HOME/lib/BufferTest2.java:$APP_HOME/lib/Bandwidth.java:$APP_HOME/lib/mpjrun.sh:$APP_HOME/lib/killall:$APP_HOME/lib/BufferTest1.java:$APP_HOME/lib/BufferTestDyna5.java:$APP_HOME/lib/BufferTestDyna4.java:$APP_HOME/lib/BufferTest7.java:$APP_HOME/lib/BufferTestDyna3.java:$APP_HOME/lib/BufferTestDyna2.java:$APP_HOME/lib/BufferTest6.java:$APP_HOME/lib/BufferTestDyna1.java:$APP_HOME/lib/BufferTest5.java:$APP_HOME/lib/BufferTest8.java:$APP_HOME/lib/MappedBuffer.java:$APP_HOME/lib/BufferTest4.java:$APP_HOME/lib/BufferTest3.java:$APP_HOME/lib/BufferTest2.java:$APP_HOME/lib/TestSuite.java:$APP_HOME/lib/mpjhalt:$APP_HOME/lib/mpjboot:$APP_HOME/lib/runmpj.sh:$APP_HOME/lib/mpjdaemon.bat:$APP_HOME/lib/mpjstatus:$APP_HOME/lib/mpjrun.sh:$APP_HOME/lib/mpjdaemon:$APP_HOME/lib/mpjclean:$APP_HOME/lib/mpjrun.bat:$APP_HOME/lib/mpjinfo:$APP_HOME/lib/CHANGELOG:$APP_HOME/lib/build.xml:$APP_HOME/lib/README-win.txt:$APP_HOME/lib/README:$APP_HOME/lib/THIRDPARTYLICENSES.txt:$APP_HOME/lib/mpj.jar:$APP_HOME/lib/mpi.jar:$APP_HOME/lib/mxdev.jar:$APP_HOME/lib/xdev.jar:$APP_HOME/lib/runtimecommon.jar:$APP_HOME/lib/starter.jar:$APP_HOME/lib/niodev.jar:$APP_HOME/lib/hybdev.jar:$APP_HOME/lib/mpjbuf.jar:$APP_HOME/lib/daemonmanager.jar:$APP_HOME/lib/tools.jar:$APP_HOME/lib/commons-cli-1.2.jar:$APP_HOME/lib/daemon.jar:$APP_HOME/lib/log4j-1.2.11.jar:$APP_HOME/lib/commons-codec-1.8.jar:$APP_HOME/lib/commons-io-2.4.jar:$APP_HOME/lib/loader1.jar:$APP_HOME/lib/mpjdev.jar:$APP_HOME/lib/loader2.jar:$APP_HOME/lib/smpdev.jar:$APP_HOME/lib/mpiExp.jar:$APP_HOME/lib/javax.servlet.jar:$APP_HOME/lib/build.properties:$APP_HOME/lib/plugin.xml:$APP_HOME/lib/MANIFEST.MF:$APP_HOME/lib/.classpath:$APP_HOME/lib/org.eclipse.jdt.core.prefs:$APP_HOME/lib/.project:$APP_HOME/lib/Thumbs.db:$APP_HOME/lib/mpjexpress.gif:$APP_HOME/lib/sample.gif:$APP_HOME/lib/mpjexpress.gif:$APP_HOME/lib/RemoteNioDevDebuggerConnector.java:$APP_HOME/lib/JavaLaunchDelegate.java:$APP_HOME/lib/MPJExpressRunTime.java:$APP_HOME/lib/IMPJLaunchConfigurationConstants.java:$APP_HOME/lib/MPJExpressParameterTab.java:$APP_HOME/lib/JavaJRETab.java:$APP_HOME/lib/JavaRemoteApplicationLaunchConfigurationDelegate.java:$APP_HOME/lib/JavaMPJConnectTab.java:$APP_HOME/lib/ArgumentImpl.java:$APP_HOME/lib/MPJExpressTabGroup.java:$APP_HOME/lib/RemoteMulticoreDebuggerConnector.java:$APP_HOME/lib/Activator.java:$APP_HOME/lib/RemoteMPJExpressTabGroup.java:$APP_HOME/lib/JavaRemoteParallelApplicationLaunchConfigurationDelegate.java:$APP_HOME/lib/MPJLauncherMessages.java:$APP_HOME/lib/StandardParallelVMDebugger.java:$APP_HOME/lib/JavaConnectTab.java:$APP_HOME/lib/windowsguide.pdf:$APP_HOME/lib/yarnguide.pdf:$APP_HOME/lib/listofmpjmethods.pdf:$APP_HOME/lib/mpj-section.png:$APP_HOME/lib/mpj-static.png:$APP_HOME/lib/mpj-static.svg:$APP_HOME/lib/mpj-section.svg:$APP_HOME/lib/DebuggingWithEclipseIDE.pdf:$APP_HOME/lib/RunningandDebuggingMPJExpresswithEclipse.docx:$APP_HOME/lib/RunningandDebuggingMPJExpresswithEclipse.pdf:$APP_HOME/lib/linuxguide.pdf:$APP_HOME/lib/MPJExpressProfilerUserGuide.pdf:$APP_HOME/lib/constant-values.html:$APP_HOME/lib/overview-tree.html:$APP_HOME/lib/index.html:$APP_HOME/lib/Status.html:$APP_HOME/lib/Group.html:$APP_HOME/lib/Op.html:$APP_HOME/lib/ShiftParms.html:$APP_HOME/lib/Datatype.html:$APP_HOME/lib/Cartcomm.html:$APP_HOME/lib/Prequest.html:$APP_HOME/lib/Intracomm.html:$APP_HOME/lib/Graphcomm.html:$APP_HOME/lib/GraphParms.html:$APP_HOME/lib/Errhandler.html:$APP_HOME/lib/User_function.html:$APP_HOME/lib/package-frame.html:$APP_HOME/lib/Intercomm.html:$APP_HOME/lib/CartParms.html:$APP_HOME/lib/package-summary.html:$APP_HOME/lib/MPIException.html:$APP_HOME/lib/package-tree.html:$APP_HOME/lib/MPI.html:$APP_HOME/lib/Comm.html:$APP_HOME/lib/Request.html:$APP_HOME/lib/allclasses-noframe.html:$APP_HOME/lib/index-all.html:$APP_HOME/lib/titlebar_end.gif:$APP_HOME/lib/tab.gif:$APP_HOME/lib/titlebar.gif:$APP_HOME/lib/background.gif:$APP_HOME/lib/deprecated-list.html:$APP_HOME/lib/stylesheet.css:$APP_HOME/lib/help-doc.html:$APP_HOME/lib/allclasses-frame.html:$APP_HOME/lib/package-list:$APP_HOME/lib/APICHANGES.txt:$APP_HOME/lib/MPJExpressProfilerUserGuide.docx:$APP_HOME/lib/yarnguide.doc:$APP_HOME/lib/LICENSE.txt:$APP_HOME/lib/mpj64.conf:$APP_HOME/lib/local2.conf:$APP_HOME/lib/mpj32.conf:$APP_HOME/lib/mpj4.conf:$APP_HOME/lib/mpj16.conf:$APP_HOME/lib/mpj8.conf:$APP_HOME/lib/mpjexpress.conf:$APP_HOME/lib/mpj2.conf:$APP_HOME/lib/ProdType.java.in:$APP_HOME/lib/MinShort.java:$APP_HOME/lib/BandLong.java:$APP_HOME/lib/GatherPackerObject.java:$APP_HOME/lib/PureIntracomm.java:$APP_HOME/lib/MultistridedPackerByte.java:$APP_HOME/lib/SimplePacker.java:$APP_HOME/lib/ProdChar.java:$APP_HOME/lib/SimplePackerLong.java:$APP_HOME/lib/Vector.java:$APP_HOME/lib/BorLong.java:$APP_HOME/lib/BorType.java.in:$APP_HOME/lib/BandShort.java:$APP_HOME/lib/GenericPacker.java:$APP_HOME/lib/Contiguous.java:$APP_HOME/lib/Maxloc.java:$APP_HOME/lib/OpWorker.java:$APP_HOME/lib/Status.java:$APP_HOME/lib/LandType.java.in:$APP_HOME/lib/Bxor.java:$APP_HOME/lib/MultistridedPackerFloat.java:$APP_HOME/lib/GatherPackerBoolean.java:$APP_HOME/lib/SumFloat.java:$APP_HOME/lib/LandWorker.java:$APP_HOME/lib/GatherPackerByte.java:$APP_HOME/lib/LxorBoolean.java:$APP_HOME/lib/BorByte.java:$APP_HOME/lib/SimplePackerByte.java:$APP_HOME/lib/Prod.java:$APP_HOME/lib/clean.pl:$APP_HOME/lib/MinFloat.java:$APP_HOME/lib/Band.java:$APP_HOME/lib/MultistridedPackerInt.java:$APP_HOME/lib/MultistridedPackerLong.java:$APP_HOME/lib/MaxlocType.java.in:$APP_HOME/lib/BandByte.java:$APP_HOME/lib/SimplePackerBoolean.java:$APP_HOME/lib/MultistridedPackerObject.java:$APP_HOME/lib/GatherPackerLong.java:$APP_HOME/lib/BxorShort.java:$APP_HOME/lib/Group.java:$APP_HOME/lib/generate.pl:$APP_HOME/lib/GatherPackerInt.java:$APP_HOME/lib/MinChar.java:$APP_HOME/lib/SumChar.java:$APP_HOME/lib/Freeable.java:$APP_HOME/lib/MultistridedPackerType.java.in:$APP_HOME/lib/BandType.java.in:$APP_HOME/lib/SimplePackerDouble.java:$APP_HOME/lib/BorShort.java:$APP_HOME/lib/MultistridedPackerShort.java:$APP_HOME/lib/Op.java:$APP_HOME/lib/MultistridedPackerFactory.java:$APP_HOME/lib/SumShort.java:$APP_HOME/lib/SimplePackerInt.java:$APP_HOME/lib/ShiftParms.java:$APP_HOME/lib/Datatype.java:$APP_HOME/lib/SumDouble.java:$APP_HOME/lib/Cartcomm.java:$APP_HOME/lib/Prequest.java:$APP_HOME/lib/SumWorker.java:$APP_HOME/lib/MaxType.java.in:$APP_HOME/lib/Intracomm.java:$APP_HOME/lib/MaxChar.java:$APP_HOME/lib/BorWorker.java:$APP_HOME/lib/SumInt.java:$APP_HOME/lib/LorType.java.in:$APP_HOME/lib/BorInt.java:$APP_HOME/lib/MaxDouble.java:$APP_HOME/lib/BxorChar.java:$APP_HOME/lib/BandWorker.java:$APP_HOME/lib/Graphcomm.java:$APP_HOME/lib/MaxWorker.java:$APP_HOME/lib/BxorInt.java:$APP_HOME/lib/Sum.java:$APP_HOME/lib/IntracommImpl.java:$APP_HOME/lib/NativeIntracomm.java:$APP_HOME/lib/GraphParms.java:$APP_HOME/lib/MaxInt.java:$APP_HOME/lib/BandInt.java:$APP_HOME/lib/BxorByte.java:$APP_HOME/lib/Errhandler.java:$APP_HOME/lib/MultistridedPackerBoolean.java:$APP_HOME/lib/MinlocType.java.in:$APP_HOME/lib/User_function.java:$APP_HOME/lib/MinInt.java:$APP_HOME/lib/Bor.java:$APP_HOME/lib/Lxor.java:$APP_HOME/lib/SimplePackerFactory.java:$APP_HOME/lib/SimplePackerType.java.in:$APP_HOME/lib/GatherPackerShort.java:$APP_HOME/lib/Intercomm.java:$APP_HOME/lib/Max.java:$APP_HOME/lib/CartParms.java:$APP_HOME/lib/MaxLong.java:$APP_HOME/lib/LxorType.java.in:$APP_HOME/lib/Lor.java:$APP_HOME/lib/Min.java:$APP_HOME/lib/GatherPackerType.java.in:$APP_HOME/lib/GatherPackerFactory.java:$APP_HOME/lib/LandBoolean.java:$APP_HOME/lib/ProdDouble.java:$APP_HOME/lib/BxorLong.java:$APP_HOME/lib/Land.java:$APP_HOME/lib/ProdWorker.java:$APP_HOME/lib/MPIException.java:$APP_HOME/lib/MaxByte.java:$APP_HOME/lib/LxorWorker.java:$APP_HOME/lib/GatherPackerFloat.java:$APP_HOME/lib/BxorType.java.in:$APP_HOME/lib/BasicType.java:$APP_HOME/lib/MultistridedPacker.java:$APP_HOME/lib/MultistridedPackerDouble.java:$APP_HOME/lib/MaxFloat.java:$APP_HOME/lib/BandChar.java:$APP_HOME/lib/BxorWorker.java:$APP_HOME/lib/SimplePackerChar.java:$APP_HOME/lib/SimplePackerFloat.java:$APP_HOME/lib/ProcTree.java:$APP_HOME/lib/ProdLong.java:$APP_HOME/lib/BorChar.java:$APP_HOME/lib/SimplePackerObject.java:$APP_HOME/lib/MinType.java.in:$APP_HOME/lib/MPI.java:$APP_HOME/lib/LorWorker.java:$APP_HOME/lib/Indexed.java:$APP_HOME/lib/ProdFloat.java:$APP_HOME/lib/SumByte.java:$APP_HOME/lib/MinByte.java:$APP_HOME/lib/LorBoolean.java:$APP_HOME/lib/Comm.java:$APP_HOME/lib/Packer.java:$APP_HOME/lib/MaxShort.java:$APP_HOME/lib/ProdByte.java:$APP_HOME/lib/ProdInt.java:$APP_HOME/lib/MultistridedPackerChar.java:$APP_HOME/lib/GatherPackerDouble.java:$APP_HOME/lib/Minloc.java:$APP_HOME/lib/SimplePackerShort.java:$APP_HOME/lib/Struct.java:$APP_HOME/lib/MinDouble.java:$APP_HOME/lib/GatherPackerChar.java:$APP_HOME/lib/MinWorker.java:$APP_HOME/lib/MinLong.java:$APP_HOME/lib/ProdShort.java:$APP_HOME/lib/SumLong.java:$APP_HOME/lib/SumType.java.in:$APP_HOME/lib/Request.java:$APP_HOME/lib/CLOptions.java:$APP_HOME/lib/MPJProcessInfo.java:$APP_HOME/lib/DaemonUtil.java:$APP_HOME/lib/DMConstants.java:$APP_HOME/lib/ProcessInfoThread.java:$APP_HOME/lib/DMThread.java:$APP_HOME/lib/HaltThread.java:$APP_HOME/lib/MPJCleanup.java:$APP_HOME/lib/MPJDaemonManager.java:$APP_HOME/lib/DMMessages.java:$APP_HOME/lib/CleanUpThread.java:$APP_HOME/lib/MPJStatus.java:$APP_HOME/lib/MPJHalt.java:$APP_HOME/lib/BootThread.java:$APP_HOME/lib/WinHalt.java:$APP_HOME/lib/DMThreadUtil.java:$APP_HOME/lib/WinBoot.java:$APP_HOME/lib/MPJBoot.java:$APP_HOME/lib/StatusThread.java:$APP_HOME/lib/RTConstants.java:$APP_HOME/lib/MPJUtil.java:$APP_HOME/lib/MPJProcessTicket.java:$APP_HOME/lib/MPJRuntimeException.java:$APP_HOME/lib/IOHelper.java:$APP_HOME/lib/MPJXml.java:$APP_HOME/lib/ProcessLauncher.java:$APP_HOME/lib/Wrapper.java:$APP_HOME/lib/JarClassLoader.java:$APP_HOME/lib/PortManager.java:$APP_HOME/lib/ProcessArgumentsManager.java:$APP_HOME/lib/ConnectionManager.java:$APP_HOME/lib/MPJDaemon.java:$APP_HOME/lib/PortRequesterThread.java:$APP_HOME/lib/MultithreadStarter.java:$APP_HOME/lib/OutputHandler.java:$APP_HOME/lib/PortManagerThread.java:$APP_HOME/lib/HybridStarter.java:$APP_HOME/lib/MPJRun.java:$APP_HOME/lib/MPJYarnClient.java:$APP_HOME/lib/MPJYarnWrapper.java:$APP_HOME/lib/KillYarnApp.java:$APP_HOME/lib/IOMessagesThread.java:$APP_HOME/lib/MulticoreStarter.java:$APP_HOME/lib/MulticoreDaemon.java:$APP_HOME/lib/MPJAppMaster.java:$APP_HOME/lib/BufferFactory.java:$APP_HOME/lib/WrongStateException.java:$APP_HOME/lib/Buddy2FreeList.java:$APP_HOME/lib/clean.pl:$APP_HOME/lib/Type.java:$APP_HOME/lib/NIOBuffer.java.in:$APP_HOME/lib/CustomObjectInputStream.java:$APP_HOME/lib/TypeMismatchException.java:$APP_HOME/lib/RawBuffer.java.in:$APP_HOME/lib/generate.pl:$APP_HOME/lib/BufferConstants.java:$APP_HOME/lib/Buddy1Buffer.java:$APP_HOME/lib/Buddy2Region.java:$APP_HOME/lib/Buffer.java.in:$APP_HOME/lib/Buddy1RegionFreeList.java:$APP_HOME/lib/IllegalArgumentException.java:$APP_HOME/lib/RawBuffer.java:$APP_HOME/lib/CustomMath.java:$APP_HOME/lib/DynamicBufferException.java:$APP_HOME/lib/Buddy2Buffer.java:$APP_HOME/lib/BufferUnderflowException.java:$APP_HOME/lib/Buddy1BufferFactory.java:$APP_HOME/lib/SectionSizeMismatchException.java:$APP_HOME/lib/Buffer.java:$APP_HOME/lib/NIOBuffer.java:$APP_HOME/lib/Buddy2BufferFactory.java:$APP_HOME/lib/Buddy1FreeList.java:$APP_HOME/lib/BufferOverflowException.java:$APP_HOME/lib/BufferException.java:$APP_HOME/lib/ProcessID.java:$APP_HOME/lib/XDevException.java:$APP_HOME/lib/HYBRecvRequest.java:$APP_HOME/lib/HYBRequest.java:$APP_HOME/lib/HYBDevice.java:$APP_HOME/lib/NIOSendRequest.java:$APP_HOME/lib/NIORecvRequest.java:$APP_HOME/lib/ConfigReader.java:$APP_HOME/lib/NIODevice.java:$APP_HOME/lib/NIORequest.java:$APP_HOME/lib/ProcTree.java:$APP_HOME/lib/Device.java:$APP_HOME/lib/SMPDevProcess.java:$APP_HOME/lib/SMPRecvRequest.java:$APP_HOME/lib/SMPDevice.java:$APP_HOME/lib/ConfigReader.java:$APP_HOME/lib/init_smp.java:$APP_HOME/lib/SMPRequest.java:$APP_HOME/lib/SMPDeviceImpl.java:$APP_HOME/lib/SMPSendRequest.java:$APP_HOME/lib/MXRecvRequest.java:$APP_HOME/lib/MXRequest.java:$APP_HOME/lib/MXProcessID.java:$APP_HOME/lib/xdev_mxdev_MXRecvRequest.h:$APP_HOME/lib/xdev_mxdev_MXSendRequest.c:$APP_HOME/lib/xdev_mxdev_MXDevice.c:$APP_HOME/lib/mxdev_const.h:$APP_HOME/lib/xdev_mxdev_MXRecvRequest.c:$APP_HOME/lib/xdev_mxdev_MXSendRequest.h:$APP_HOME/lib/xdev_mxdev_MXDevice.h:$APP_HOME/lib/MXDevice.java:$APP_HOME/lib/MXSendRequest.java:$APP_HOME/lib/Group.java:$APP_HOME/lib/MPJDev.java:$APP_HOME/lib/Comm.java:$APP_HOME/lib/MPJDevException.java:$APP_HOME/lib/Status.java:$APP_HOME/lib/Group.java:$APP_HOME/lib/Group.java:$APP_HOME/lib/NativeRecvRequest.java:$APP_HOME/lib/Intracomm.java:$APP_HOME/lib/NativeSendRequest.java:$APP_HOME/lib/Intercomm.java:$APP_HOME/lib/NativeRequest.java:$APP_HOME/lib/mpjdev_natmpjdev_Intercomm.c:$APP_HOME/lib/mpjdev_natmpjdev_Group.h:$APP_HOME/lib/CMakeLists.txt:$APP_HOME/lib/mpjdev_natmpjdev_NativeRecvRequest.c:$APP_HOME/lib/mpjdev_natmpjdev_Comm.c:$APP_HOME/lib/mpjdev_natmpjdev_NativeSendRequest.h:$APP_HOME/lib/mpjdev_natmpjdev_Intracomm.c:$APP_HOME/lib/mpjdev_natmpjdev_Group.c:$APP_HOME/lib/mpjdev_natmpjdev_Intercomm.h:$APP_HOME/lib/mpjdev_natmpjdev_shared.h:$APP_HOME/lib/mpjdev_natmpjdev_NativeRecvRequest.h:$APP_HOME/lib/mpjdev_natmpjdev_NativeSendRequest.c:$APP_HOME/lib/mpjdev_natmpjdev_Comm.h:$APP_HOME/lib/mpjdev_natmpjdev_Intracomm.h:$APP_HOME/lib/MPJDev.java:$APP_HOME/lib/Comm.java:$APP_HOME/lib/CompletionHandler.java:$APP_HOME/lib/MPJException.java:$APP_HOME/lib/MPJDev.java:$APP_HOME/lib/Comm.java:$APP_HOME/lib/Request.java:$APP_HOME/lib/Constants.java
+
+# Determine the Java command to use to start the JVM.
+if [ -n "$JAVA_HOME" ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+        # IBM's JDK on AIX uses strange locations for the executables
+        JAVACMD="$JAVA_HOME/jre/sh/java"
+    else
+        JAVACMD="$JAVA_HOME/bin/java"
+    fi
+    if [ ! -x "$JAVACMD" ] ; then
+        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+    fi
+else
+    JAVACMD="java"
+    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+fi
+
+# Increase the maximum file descriptors if we can.
+if [ "$cygwin" = "false" -a "$darwin" = "false" -a "$nonstop" = "false" ] ; then
+    MAX_FD_LIMIT=`ulimit -H -n`
+    if [ $? -eq 0 ] ; then
+        if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ] ; then
+            MAX_FD="$MAX_FD_LIMIT"
+        fi
+        ulimit -n $MAX_FD
+        if [ $? -ne 0 ] ; then
+            warn "Could not set maximum file descriptor limit: $MAX_FD"
+        fi
+    else
+        warn "Could not query maximum file descriptor limit: $MAX_FD_LIMIT"
+    fi
+fi
+
+# For Darwin, add options to specify how the application appears in the dock
+if $darwin; then
+    GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=$APP_NAME\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
+fi
+
+# For Cygwin, switch paths to Windows format before running java
+if $cygwin ; then
+    APP_HOME=`cygpath --path --mixed "$APP_HOME"`
+    CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
+    JAVACMD=`cygpath --unix "$JAVACMD"`
+
+    # We build the pattern for arguments to be converted via cygpath
+    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
+    SEP=""
+    for dir in $ROOTDIRSRAW ; do
+        ROOTDIRS="$ROOTDIRS$SEP$dir"
+        SEP="|"
+    done
+    OURCYGPATTERN="(^($ROOTDIRS))"
+    # Add a user-defined pattern to the cygpath arguments
+    if [ "$GRADLE_CYGPATTERN" != "" ] ; then
+        OURCYGPATTERN="$OURCYGPATTERN|($GRADLE_CYGPATTERN)"
+    fi
+    # Now convert the arguments - kludge to limit ourselves to /bin/sh
+    i=0
+    for arg in "$@" ; do
+        CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
+        CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### Determine if an option
+
+        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
+            eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
+        else
+            eval `echo args$i`="\"$arg\""
+        fi
+        i=$((i+1))
+    done
+    case $i in
+        (0) set -- ;;
+        (1) set -- "$args0" ;;
+        (2) set -- "$args0" "$args1" ;;
+        (3) set -- "$args0" "$args1" "$args2" ;;
+        (4) set -- "$args0" "$args1" "$args2" "$args3" ;;
+        (5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
+        (6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
+        (7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
+        (8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
+        (9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
+    esac
+fi
+
+# Escape application args
+save () {
+    for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
+    echo " "
+}
+APP_ARGS=$(save "$@")
+
+# Collect all arguments for the java command, following the shell quoting and substitution rules
+eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $MPJ_TEST_OPTS -classpath "\"$CLASSPATH\"" mpj.Lab2 "$APP_ARGS"
+
+# by default we should be in the correct project dir, but when run from Finder on Mac, the cwd is wrong
+if [ "$(uname)" = "Darwin" ] && [ "$HOME" = "$PWD" ]; then
+  cd "$(dirname "$0")"
+fi
+
+exec "$JAVACMD" "$@"
